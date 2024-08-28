@@ -6,6 +6,7 @@ TalentEase is an HR Management tool designed to streamline and simplify HR proce
 - Server: ASP.NET Core Web Api
 - Client: Blazor WebAssembly Standalone App
 - UI: Blazor Bootstrap 3.0.0
+- DB: MS SQL Server (Express), SSMS 
 - Other: .NET 8, Entity Framework
 
 ### Installation Instructions
