@@ -1,1 +1,41 @@
 # TalentEase
+
+TalentEase is an HR Management tool designed to streamline and simplify HR processes. Currently it shows and display a table list of employees. 
+
+### Tech Stack 
+- Server: ASP.NET Core Web Api
+- Client: Blazor WebAssembly Standalone App
+- UI: Blazor Bootstrap 3.0.0
+- Other: .NET 8, Entity Framework
+
+### Installation Instructions
+
+1. **Clone the Repository**:
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. **Set Up Database and Connection String**:
+   - Configure your database and connection string. You can name your connection string anything you like. For example, `HRData`.
+
+3. **Set Application Target to Multiple**:
+   - Ensure that both the client and API are set to run simultaneously.
+
+4. **Build and Run the Application**:
+   - Build the project and run the application.
+
+### Example Connection String Configuration
+
+In your `appsettings.json` file, configure the connection string as follows:
+```json
+{
+  "ConnectionStrings": {
+    "HRData": "YourConnectionStringHere"
+  }
+}
+```
+
+### Running the Application
+
+Press start or cntrl + f5 in VS
+
