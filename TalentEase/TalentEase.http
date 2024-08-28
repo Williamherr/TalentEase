@@ -1,0 +1,6 @@
+@TalentEase_HostAddress = http://localhost:8000
+
+GET {{TalentEase_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

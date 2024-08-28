@@ -1,0 +1,184 @@
+﻿@page "/employees"
+@using BlazorBootstrap
+@using TalentEase.Client.Models
+
+<h1>Employees</h1>
+
+<Accordion Class="my-4">
+    <AccordionItem>
+        <TitleTemplate>
+            <Icon Name="IconName.Search" Class="me-1" /> Search for employee
+        </TitleTemplate>
+        <Content>
+            <EditForm Model="@searchedEmployee" OnValidSubmit="Search">
+                <div class="d-flex gap-2 flex-wrap">
+                    <InputNumber @bind-Value="searchedEmployee.EmployeeId" Placeholder="ID" class="form-control" />
+                    <InputText @bind-Value="searchedEmployee.FirstName" Placeholder="First Name" class="form-control" />
+                    <InputText @bind-Value="searchedEmployee.LastName" Placeholder="Last Name" class="form-control" />
+                    <InputText @bind-Value="searchedEmployee.Email" Placeholder="Email" class="form-control" />
+                    <InputText @bind-Value="searchedEmployee.DepartmentName" Placeholder="Department" class="form-control" />
+                    <InputText @bind-Value="searchedEmployee.CountryName" Placeholder="Country" class="form-control" />
+                    <InputText @bind-Value="searchedEmployee.RegionName" Placeholder="Region" class="form-control" />
+                    <div class="d-flex gap-2 flex-row">
+                        <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Search</Button>
+                        <Button Color="ButtonColor.Secondary" Type="ButtonType.Reset" @onclick="Clear">Clear</Button>
+                    </div>
+                </div>
+            </EditForm>
+        </Content>
+    </AccordionItem>
+</Accordion>
+
+
+
+<Grid @ref="grid"
+      TItem="EmployeeDto"
+      Class="table-hover table-bordered table"
+      Data="@employees"
+      AllowDetailView="true"
+      AllowPaging="true"
+      Responsive="true">
+
+    <GridColumn TItem="EmployeeDto" HeaderText="Id" PropertyName="EmployeeId" FilterTextboxWidth="50" HeaderTextAlignment="Alignment.Center" TextAlignment="Alignment.Center">
+        @context.EmployeeId
+    </GridColumn>
+    <GridColumn TItem="EmployeeDto" HeaderText="Name" PropertyName="EmployeeId" FilterTextboxWidth="50" HeaderTextAlignment="Alignment.Center" TextAlignment="Alignment.Center">
+        @context.FirstName @context.LastName
+    </GridColumn>
+    <GridColumn TItem="EmployeeDto" HeaderText="Job" PropertyName="JobTitle" FilterTextboxWidth="50" HeaderTextAlignment="Alignment.Center" TextAlignment="Alignment.Center">
+        @context.Job.JobTitle
+    </GridColumn>
+    <GridColumn TItem="EmployeeDto" HeaderText="Department" PropertyName="Department" FilterTextboxWidth="50" HeaderTextAlignment="Alignment.Center" TextAlignment="Alignment.Center">
+        @context.Department.DepartmentName
+    </GridColumn>
+    <GridColumn TItem="EmployeeDto" HeaderText="Country" PropertyName="Country" FilterTextboxWidth="50" HeaderTextAlignment="Alignment.Center" TextAlignment="Alignment.Center">
+        @context.Department.Location.Country.CountryName
+    </GridColumn>
+
+    <GridDetailView TItem="EmployeeDto" Context="emp1">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-decoration-underline">Employee Info</h2>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Employee Id</div>
+                        <div class="col text-wrap">@emp1.EmployeeId</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">First Name</div>
+                        <div class="col text-wrap">@emp1.FirstName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Last Name</div>
+                        <div class="col text-wrap">@emp1.LastName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Email</div>
+                        <div class="col text-wrap">@emp1.Email</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Phone Number</div>
+                        <div class="col text-wrap">@emp1.PhoneNumber</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Hire Date</div>
+                        <div class="col text-wrap">@emp1.HireDate.ToString("yyyy-MM-dd")</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Job Id</div>
+                        <div class="col text-wrap">@emp1.Job.JobId</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Job Title</div>
+                        <div class="col text-wrap">@emp1.Job.JobTitle</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Dependents</div>
+                        <div class="col text-wrap">
+                            @foreach (var dependent in emp1.Dependents)
+                            {
+                                <div>Id @dependent.DependentId</div>
+                                <div> @dependent.FirstName @dependent.LastName (@dependent.Relationship)</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+            </div>
+            <div class="col-6">
+                <h2 class="text-decoration-underline">Department Info</h2>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Department ID</div>
+                        <div class="col text-wrap">@emp1.Department.DepartmentId</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Department Name</div>
+                        <div class="col text-wrap">@emp1.Department.DepartmentName</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Location Id</div>
+                        <div class="col text-wrap">@emp1.Department.Location.LocationId</div>
+                        <div class="col-md-6 col-12 fw-bold">Street Address</div>
+                        <div class="col text-wrap">@emp1.Department.Location.StreetAddress</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Postal Code</div>
+                        <div class="col text-wrap">@emp1.Department.Location.PostalCode</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">City</div>
+                        <div class="col text-wrap">@emp1.Department.Location.City</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">State</div>
+                        <div class="col text-wrap">@emp1.Department.Location.StateProvince</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Country Id</div>
+                        <div class="col text-wrap">@emp1.Department.Location.Country.CountryId</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Country</div>
+                        <div class="col text-wrap">@emp1.Department.Location.Country.CountryName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Region Id</div>
+                        <div class="col text-wrap">@emp1.Department.Location.Country.Region.RegionId</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12 fw-bold">Region</div>
+                        <div class="col text-wrap">@emp1.Department.Location.Country.Region.RegionName</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </GridDetailView>
+
+</Grid>
+
+<style>
+    .row {
+        margin-top: 5px
+    }
+
+    .headings {
+        text-decoration: underline
+    }
+
+    .text-wrap {
+        word-wrap: break-word;
+        white-space: normal;
+    }
+</style>
