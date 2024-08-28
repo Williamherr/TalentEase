@@ -17,7 +17,7 @@ TalentEase is an HR Management tool designed to streamline and simplify HR proce
 
 2. **Set Up Database and Connection String**:
    - Configure your database and connection string in the appsettings.json. You can name your connection string anything you like. For example, `HRData`.
-   - Make sure to add appsettings.json to .gitnore. I left it in the repository so that whoever clones it would not have to create a new one. 
+   - Make sure to add appsettings.json to .gitnore for security reasons. I left it in the repository so that whoever clones it would not have to create a new one. 
 
 3. **Set Application Target to Multiple**:
    - Ensure that both the client and API are set to run simultaneously.
